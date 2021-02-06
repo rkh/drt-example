@@ -79,3 +79,36 @@ end
 ```
 
 At this point, everything works as expected.
+
+### Set up Devise
+
+Add `devise` to the Gemfile.
+
+Set up a user class with devise.
+
+``` console
+$ rails generate devise:install
+      create  config/initializers/devise.rb
+      create  config/locales/devise.en.yml
+$ rails generate devise user
+      invoke  active_record
+      create    db/migrate/20210206133737_devise_create_users.rb
+      create    app/models/user.rb
+      invoke    test_unit
+      create      test/models/user_test.rb
+      create      test/fixtures/users.yml
+      insert    app/models/user.rb
+       route  devise_for :users
+$ rails db:migrate
+== 20210206133737 DeviseCreateUsers: migrating ================================
+-- create_table(:users)
+   -> 0.0018s
+-- add_index(:users, :email, {:unique=>true})
+   -> 0.0006s
+-- add_index(:users, :reset_password_token, {:unique=>true})
+   -> 0.0006s
+== 20210206133737 DeviseCreateUsers: migrated (0.0031s) =======================
+```
+
+Add `before_action :authenticate_user!` to `app/controllers/application_controller.rb`.
+Move the devise routes inside the localized block in `config/routes.rb` (this is the step that breaks things).
