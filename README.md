@@ -1,3 +1,5 @@
+Example application to show issue with using devise and route_translator in the same rails project.
+
 ## Steps to recreate app
 
 Here are all the steps to recreate this example application from scratch, assuming Ruby and Rails are installed:
@@ -112,3 +114,9 @@ $ rails db:migrate
 
 Add `before_action :authenticate_user!` to `app/controllers/application_controller.rb`.
 Move the devise routes inside the localized block in `config/routes.rb` (this is the step that breaks things).
+
+## The Issue
+
+Accessing `/de` without being logged in should redirect to `/de/users/sign_in`, but redirects to `/users/sign_in`.
+
+This will result in the login for being in the wrong locale. Moreover, in more complex situations, like host based routing, this will break completely (most likely showing a 404 or 500 error page instead of the log in form).
