@@ -34,3 +34,48 @@ Set up the views with some content:
 ``` erb
 <%= I18n.locale %>
 ```
+
+### Set up localized routing
+
+Add `route_translator` to the Gemfile.
+
+Set up localized routes in `config/routes.rb`:
+
+``` ruby
+Rails.application.routes.draw do
+  localized do
+    root to: 'home#index'
+    get 'example', to: 'home#example'
+  end
+end
+```
+
+Set up locales:
+
+`config/locales/en.yml`
+
+``` yaml
+en:
+  greetings: Welcome
+  example: Example
+```
+
+`config/locales/de.yml`
+
+``` yaml
+de:
+  greetings: Willkommen
+  example: Beispiel
+  routes:
+    example: beispiel
+```
+
+Make sure locale is set for controller/view in `app/controllers/application_controller.rb`:
+
+``` ruby
+class ApplicationController < ActionController::Base
+  around_action :set_locale_from_url
+end
+```
+
+At this point, everything works as expected.
