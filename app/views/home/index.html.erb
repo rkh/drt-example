@@ -1,2 +1,6 @@
 <h1><%= t(:greetings) %></h1>
 <%= link_to t(:example), action: :example %>
+
+<% I18n.available_locales.each do |locale| %>
+  <%= link_to locale, locale: locale.to_s if locale != I18n.locale %>
+<% end %>

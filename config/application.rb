@@ -34,5 +34,8 @@ module DrtExample
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # allow access from de.local and en.local
+    config.hosts << /.+\.local/
   end
 end

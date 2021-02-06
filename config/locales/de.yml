@@ -3,3 +3,8 @@ de:
   example: Beispiel
   routes:
     example: beispiel
+    sign_in: anmelden
+    sign_out: abmelden
+    password: passwort
+    new: erstellen
+    edit: bearbeiten
